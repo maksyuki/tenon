@@ -1,0 +1,70 @@
+# QFN64 Pin Manifest
+
+Top view: P1 is the south-west corner; numbering proceeds counter-clockwise. QFN lead count excludes an exposed pad.
+
+| Pin | Side | Slot | Function | Direction | IHP cell | Core-facing signal |
+|---|---|---:|---|---|---|---|
+| P1 | south | 1 | IOVDD | power | sg13g2_IOPadIOVdd | IOVDD |
+| P2 | south | 2 | mgmt_clk | input | sg13g2_IOPadIn | mgmt_clk_i |
+| P3 | south | 3 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[0] |
+| P4 | south | 4 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[1] |
+| P5 | south | 5 | IOVSS | ground | sg13g2_IOPadIOVss | IOVSS |
+| P6 | south | 6 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[2] |
+| P7 | south | 7 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[3] |
+| P8 | south | 8 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[4] |
+| P9 | south | 9 | VDD | power | sg13g2_IOPadVdd | VDD |
+| P10 | south | 10 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[5] |
+| P11 | south | 11 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[6] |
+| P12 | south | 12 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[7] |
+| P13 | south | 13 | VSS | ground | sg13g2_IOPadVss | VSS |
+| P14 | south | 14 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[8] |
+| P15 | south | 15 | mgmt_rst_n | input | sg13g2_IOPadIn | mgmt_rst_n_i |
+| P16 | south | 16 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[9] |
+| P17 | east | 1 | IOVDD | power | sg13g2_IOPadIOVdd | IOVDD |
+| P18 | east | 2 | jtag_tck | input | sg13g2_IOPadIn | jtag_tck_i |
+| P19 | east | 3 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[10] |
+| P20 | east | 4 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[11] |
+| P21 | east | 5 | IOVSS | ground | sg13g2_IOPadIOVss | IOVSS |
+| P22 | east | 6 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[12] |
+| P23 | east | 7 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[13] |
+| P24 | east | 8 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[14] |
+| P25 | east | 9 | VDD | power | sg13g2_IOPadVdd | VDD |
+| P26 | east | 10 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[15] |
+| P27 | east | 11 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[16] |
+| P28 | east | 12 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[17] |
+| P29 | east | 13 | VSS | ground | sg13g2_IOPadVss | VSS |
+| P30 | east | 14 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[18] |
+| P31 | east | 15 | jtag_tms | input | sg13g2_IOPadIn | jtag_tms_i |
+| P32 | east | 16 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[19] |
+| P33 | north | 1 | IOVDD | power | sg13g2_IOPadIOVdd | IOVDD |
+| P34 | north | 2 | jtag_tdi | input | sg13g2_IOPadIn | jtag_tdi_i |
+| P35 | north | 3 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[20] |
+| P36 | north | 4 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[21] |
+| P37 | north | 5 | IOVSS | ground | sg13g2_IOPadIOVss | IOVSS |
+| P38 | north | 6 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[22] |
+| P39 | north | 7 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[23] |
+| P40 | north | 8 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[24] |
+| P41 | north | 9 | VDD | power | sg13g2_IOPadVdd | VDD |
+| P42 | north | 10 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[25] |
+| P43 | north | 11 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[26] |
+| P44 | north | 12 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[27] |
+| P45 | north | 13 | VSS | ground | sg13g2_IOPadVss | VSS |
+| P46 | north | 14 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[28] |
+| P47 | north | 15 | jtag_tdo | output | sg13g2_IOPadOut30mA | jtag_tdo_o |
+| P48 | north | 16 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[29] |
+| P49 | west | 1 | IOVDD | power | sg13g2_IOPadIOVdd | IOVDD |
+| P50 | west | 2 | uart_rx | input | sg13g2_IOPadIn | uart_rx_i |
+| P51 | west | 3 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[30] |
+| P52 | west | 4 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[31] |
+| P53 | west | 5 | IOVSS | ground | sg13g2_IOPadIOVss | IOVSS |
+| P54 | west | 6 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[32] |
+| P55 | west | 7 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[33] |
+| P56 | west | 8 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[34] |
+| P57 | west | 9 | VDD | power | sg13g2_IOPadVdd | VDD |
+| P58 | west | 10 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[35] |
+| P59 | west | 11 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[36] |
+| P60 | west | 12 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[37] |
+| P61 | west | 13 | VSS | ground | sg13g2_IOPadVss | VSS |
+| P62 | west | 14 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[38] |
+| P63 | west | 15 | uart_tx | output | sg13g2_IOPadOut30mA | uart_tx_o |
+| P64 | west | 16 | GPIO | inout | sg13g2_IOPadInOut30mA | gpio[39] |

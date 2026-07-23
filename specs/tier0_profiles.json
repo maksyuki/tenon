@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "pin_orientation": "Top view: P1 is the south-west corner; numbering proceeds counter-clockwise.",
+  "power_rail_order": ["IOVDD", "IOVSS", "VDD", "VSS"],
+  "management_by_side": {
+    "south": ["mgmt_clk", "mgmt_rst_n"],
+    "east": ["jtag_tck", "jtag_tms"],
+    "north": ["jtag_tdi", "jtag_tdo"],
+    "west": ["uart_rx", "uart_tx"]
+  },
+  "profiles": [
+    {
+      "id": "qfn32",
+      "top": "tenon_tier0_qfn32",
+      "package_leads": 32,
+      "pads_per_rail": 2,
+      "gpio_count": 16,
+      "die_side_um": 1600,
+      "core_side_um": 870
+    },
+    {
+      "id": "qfn64",
+      "top": "tenon_tier0_qfn64",
+      "package_leads": 64,
+      "pads_per_rail": 4,
+      "gpio_count": 40,
+      "die_side_um": 2080,
+      "core_side_um": 1350
+    },
+    {
+      "id": "qfn88",
+      "top": "tenon_tier0_qfn88",
+      "package_leads": 88,
+      "pads_per_rail": 6,
+      "gpio_count": 56,
+      "die_side_um": 2560,
+      "core_side_um": 1830
+    },
+    {
+      "id": "qfn128",
+      "top": "tenon_tier0_qfn128",
+      "package_leads": 128,
+      "pads_per_rail": 8,
+      "gpio_count": 88,
+      "die_side_um": 3360,
+      "core_side_um": 2630
+    }
+  ]
+}
