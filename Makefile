@@ -1,14 +1,17 @@
-PYTHON ?= python3
-IVERILOG ?= iverilog
-VVP ?= vvp
-LIBRELANE ?= librelane
-PDK ?= ihp-sg13g2
-PDK_ROOT ?=
-SKIP_DRC ?= 0
+PYTHON         ?= python3
+IVERILOG       ?= iverilog
+VVP            ?= vvp
+MBAKE          ?= mbake
+VERIBLE_FORMAT ?= verible-verilog-format
+LIBRELANE      ?= librelane
+PDK            ?= ihp-sg13g2
+PDK_ROOT       ?=
+SKIP_DRC       ?= 0
 
-RTL := rtl/tenon_tier0_padframe.sv rtl/tenon_tier0_reference.sv rtl/tenon_tier0_variants.sv
+RTL          := rtl/tenon_tier0_padframe.sv rtl/tenon_tier0_reference.sv rtl/tenon_tier0_variants.sv
 PDK_IO_MODEL = $(PDK_ROOT)/$(PDK)/libs.ref/sg13g2_io/verilog/sg13g2_io.v
-BUILD_DIR := build
+CI_IO_MODEL  := tb/ci_sg13g2_io_stub.sv
+BUILD_DIR    := build
 
 .DEFAULT_GOAL := help
 
@@ -16,15 +19,21 @@ ifneq ($(filter 1 true TRUE yes YES,$(SKIP_DRC)),)
 DRC_OVERRIDES := --override-config RUN_MAGIC_DRC=false --override-config RUN_KLAYOUT_DRC=false
 endif
 
-.PHONY: help generate check-generated check-pdk lint lint-qfn32 lint-qfn64 lint-qfn88 lint-qfn128 test harden-all harden-qfn32 harden-qfn64 harden-qfn88 harden-qfn128
+.PHONY: help generate check-generated check format format-check mk-format mk-format-check rtl-format rtl-format-check sim-compile check-pdk lint lint-qfn32 lint-qfn64 lint-qfn88 lint-qfn128 test harden-all harden-qfn32 harden-qfn64 harden-qfn88 harden-qfn128
 
 help:
 	@echo "Usage: make <target> PDK_ROOT=/path/to/IHP-Open-PDK"
 	@echo ""
 	@echo "  generate          Regenerate pin manifests and LibreLane configs"
 	@echo "  check-generated   Verify generated files are current"
-	@echo "  lint              Compile all fixed Tier0 package tops"
-	@echo "  test              Run SystemVerilog pad behavior tests"
+	@echo "  check             Run PDK-independent repository checks"
+	@echo "  format            Format tracked Makefiles, RTL, and testbench SystemVerilog"
+	@echo "  format-check      Verify tracked Makefile and SystemVerilog formatting"
+	@echo "  mk-format         Format tracked Makefiles with mbake"
+	@echo "  mk-format-check   Verify tracked Makefiles with mbake without editing"
+	@echo "  sim-compile       Compile the testbench with CI PadCell declarations"
+	@echo "  lint              Compile all fixed Tier0 package tops with the IHP IO model"
+	@echo "  test              Run SystemVerilog pad behavior tests with the IHP IO model"
 	@echo "  harden-qfn32      Run LibreLane for one package profile"
 	@echo "  harden-qfn64"
 	@echo "  harden-qfn88"
@@ -37,6 +46,27 @@ generate:
 
 check-generated:
 	$(PYTHON) tools/generate_tier0.py --check
+
+check: check-generated
+
+format: mk-format rtl-format
+
+format-check: mk-format-check rtl-format-check
+
+mk-format:
+	$(PYTHON) scripts/check_format.py --root . --kind make --apply --mbake $(MBAKE)
+
+mk-format-check:
+	$(PYTHON) scripts/check_format.py --root . --kind make --mbake $(MBAKE)
+
+rtl-format:
+	$(PYTHON) scripts/check_format.py --root . --kind rtl --apply --verible-verilog-format $(VERIBLE_FORMAT)
+
+rtl-format-check:
+	$(PYTHON) scripts/check_format.py --root . --kind rtl --verible-verilog-format $(VERIBLE_FORMAT)
+
+sim-compile:
+	$(IVERILOG) -g2012 -tnull -s tenon_tier0_tb $(CI_IO_MODEL) $(RTL) tb/tenon_tier0_tb.sv
 
 check-pdk:
 	@test -n "$(PDK_ROOT)" || (echo "PDK_ROOT must point to an existing IHP Open PDK root" && exit 2)

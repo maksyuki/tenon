@@ -2,4 +2,4 @@ build/
 flow/runs/
 *.vvp
 *.fst
-
+__pycache__/
