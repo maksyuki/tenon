@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
 // Functional checks against the IHP SG13G2 behavioral IO models.
 
-`timescale 1ns / 1ps `default_nettype none
+// verilog_format: off
+`timescale 1ns/1ps
+`default_nettype none
+// verilog_format: on
 
 module tenon_tier0_case #(
     parameter integer GPIO_COUNT    = 16,
