@@ -1,0 +1,53 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install mbake
+        run: python3 -m pip install mbake==1.4.6
+      - name: Install locked Verible
+        env:
+          VERIBLE_URL: https://github.com/chipsalliance/verible/releases/download/v0.0-3946-g851d3ff4/verible-v0.0-3946-g851d3ff4-linux-static-x86_64.tar.gz
+          VERIBLE_SHA256: be81036ab5a3d5d5ba4ee677ebf9a09665779c3bd99ffe2e161c5025beaa1f16
+        run: |
+          curl --fail --location --output verible.tar.gz "${VERIBLE_URL}"
+          echo "${VERIBLE_SHA256}  verible.tar.gz" | sha256sum --check
+          tar --extract --file verible.tar.gz
+          echo "${PWD}/verible-v0.0-3946-g851d3ff4/bin" >> "${GITHUB_PATH}"
+      - run: make format-check
+
+  check:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: make check
+      - run: python3 -m pip install yamllint==1.35.1
+      - run: yamllint .github .yamllint.yml
+      - name: Install actionlint
+        env:
+          GOBIN: ${{ runner.temp }}/actionlint-bin
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+          echo "${GOBIN}" >> "${GITHUB_PATH}"
+      - run: actionlint
+
+  sim-compile:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: sudo apt-get update && sudo apt-get install --no-install-recommends --yes iverilog
+      - run: make sim-compile
